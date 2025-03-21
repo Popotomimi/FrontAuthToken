@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+/* Footer */
+
+.github {
+  font-size: 3rem;
+  background-color: #000;
+  border-radius: 222px;
+  border: solid 1px #fff;
+  color: #fff;
+  transition: 0.5s;
+  margin-top: 10px;
+}
+
+.github:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.linkedin {
+  font-size: 3rem;
+  background-color: #fff;
+  border-radius: 6px;
+  border: solid 1px #fff;
+  color: #0e76a8;
+  transition: 0.5s;
+  margin-top: 10px;
+}
+
+.linkedin:hover {
+  border: solid 1px #0e76a8;
+  background-color: #0e76a8;
+  color: #fff;
+}
