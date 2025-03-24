@@ -1,12 +1,8 @@
-// Hooks
-import { useState } from "react";
-
-// IMG
+import { useState, useContext } from "react";
+import { Context } from "../../context/UserContext";
 import olhosAbertos from "/img/olhos_abertos.jpg";
 import olhosFechados from "/img/olhos_fechados.jpg";
 import umOlhoAberto from "/img/um_olho_aberto.jpg";
-
-// Toast
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -15,8 +11,11 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [image, setImage] = useState(olhosAbertos);
   const [isFocusing, setIsFocusing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const { login } = useContext(Context);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || email === "" || !password || password === "") {
@@ -24,9 +23,22 @@ const Login = () => {
       return;
     }
 
-    toast.success(`Bem-vindo, ${email}!`);
-    setEmail("");
-    setPassword("");
+    setIsLoading(true);
+
+    const user = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      await login(user);
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.error("Erro no login:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handlePasswordFocus = () => {
@@ -89,12 +101,19 @@ const Login = () => {
             {showPassword ? "Ocultar senha" : "Mostrar senha"}
           </button>
         </div>
-        <input
+        <button
           type="submit"
-          value="Entrar"
-          className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 cursor-pointer"
-        />
-        <div className="text-center text-gray-500 my-4 font-semibold">ou</div>
+          disabled={isLoading}
+          className={`w-full py-3 rounded-lg ${
+            isLoading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-500 text-white hover:bg-blue-600"
+          }`}>
+          {isLoading ? "Carregando..." : "Entrar"}
+        </button>
+        <div className="text-center text-gray-500 my-4 font-semibold italic">
+          ou
+        </div>
         <a
           href="/register"
           className="block text-center text-blue-500 font-bold hover:underline">
