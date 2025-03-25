@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { Context } from "../../context/UserContext"; // Importa o contexto
+import { Context } from "../../context/UserContext";
 
 const Home = () => {
-  const { authenticated, user } = useContext(Context); // Pega o estado autenticado e os dados do usuário
+  const { authenticated, user } = useContext(Context);
 
   return (
     <div className="bg-gray-100 min-h-screen text-center flex flex-col items-center p-6">
@@ -10,14 +10,11 @@ const Home = () => {
         Bem-vindo ao Meu Projeto!
       </h1>
 
-      {/* Verifica se o usuário está autenticado */}
       {authenticated && user ? (
-        // Caso esteja autenticado, mostra a mensagem de boas-vindas
         <p className="text-lg text-gray-600 my-4">
           Bem-vindo, <span className="font-semibold">{user.name}</span>!
         </p>
       ) : (
-        // Caso não esteja autenticado, mostra os botões de login e registro
         <>
           <p className="text-lg text-gray-600 text-center max-w-xl my-4">
             Este é um sistema completo com autenticação. Aqui você pode criar
@@ -52,7 +49,6 @@ const Home = () => {
         </>
       )}
 
-      {/* Outros conteúdos continuam sendo exibidos */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
         <div className="bg-white shadow-md rounded-lg p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-2">
