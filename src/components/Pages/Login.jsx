@@ -43,6 +43,10 @@ const Login = () => {
 
   const handlePasswordFocus = () => {
     setIsFocusing(true);
+
+    if (image === umOlhoAberto) {
+      return;
+    }
     setImage(olhosFechados);
   };
 

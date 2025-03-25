@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
   const { id } = useParams();
@@ -8,6 +9,14 @@ const EditProfile = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    gender: "",
+    address: {
+      street: "",
+      city: "",
+      state: "",
+      postalCode: "",
+    },
+    phone: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,6 +31,14 @@ const EditProfile = () => {
           setFormData({
             name: response.data.name || "",
             email: response.data.email || "",
+            gender: response.data.gender || "",
+            address: {
+              street: response.data.address?.street || "",
+              city: response.data.address?.city || "",
+              state: response.data.address?.state || "",
+              postalCode: response.data.address?.postalCode || "",
+            },
+            phone: response.data.phone || "",
           });
         } else {
           throw new Error("Usuário não encontrado");
@@ -39,17 +56,29 @@ const EditProfile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    setFormData((prevFormData) => {
+      if (name.startsWith("address.")) {
+        const addressField = name.split(".")[1];
+        return {
+          ...prevFormData,
+          address: {
+            ...prevFormData.address,
+            [addressField]: value,
+          },
+        };
+      }
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.patch(`${import.meta.env.VITE_URL}/users/${id}`, formData);
-      alert("Usuário atualizado com sucesso!");
+      toast.success("Usuário atualizado com sucesso!");
       navigate("/dashboard");
     } catch (err) {
       console.error("Erro ao atualizar o usuário:", err);
@@ -96,6 +125,102 @@ const EditProfile = () => {
               onChange={handleChange}
               className="w-full border rounded px-3 py-2"
               required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="gender" className="block text-gray-700 font-medium">
+              Gênero:
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              className="w-full border rounded px-3 py-2">
+              <option value="">Selecione</option>
+              <option value="male">Masculino</option>
+              <option value="female">Feminino</option>
+              <option value="other">Outro</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="address.street"
+              className="block text-gray-700 font-medium">
+              Rua:
+            </label>
+            <input
+              id="address.street"
+              name="address.street"
+              type="text"
+              value={formData.address.street}
+              onChange={handleChange}
+              className="w-full border rounded px-3 py-2"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="address.city"
+              className="block text-gray-700 font-medium">
+              Cidade:
+            </label>
+            <input
+              id="address.city"
+              name="address.city"
+              type="text"
+              value={formData.address.city}
+              onChange={handleChange}
+              className="w-full border rounded px-3 py-2"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="address.state"
+              className="block text-gray-700 font-medium">
+              Estado:
+            </label>
+            <input
+              id="address.state"
+              name="address.state"
+              type="text"
+              value={formData.address.state}
+              onChange={handleChange}
+              className="w-full border rounded px-3 py-2"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="address.postalCode"
+              className="block text-gray-700 font-medium">
+              Código Postal:
+            </label>
+            <input
+              id="address.postalCode"
+              name="address.postalCode"
+              type="text"
+              value={formData.address.postalCode}
+              onChange={handleChange}
+              className="w-full border rounded px-3 py-2"
+            />
+          </div>
+
+          {/* Campo telefone */}
+          <div className="mb-4">
+            <label htmlFor="phone" className="block text-gray-700 font-medium">
+              Telefone:
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="text"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full border rounded px-3 py-2"
             />
           </div>
 

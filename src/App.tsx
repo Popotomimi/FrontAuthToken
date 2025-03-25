@@ -25,7 +25,7 @@ function App() {
     <BrowserRouter>
       <UserProvider>
         <Navbar />
-        <ToastContainer autoClose={3000} position="top-center" />
+        <ToastContainer autoClose={3000} position="top-center" theme="dark" />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
