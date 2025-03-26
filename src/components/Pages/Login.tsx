@@ -15,7 +15,7 @@ const Login = () => {
 
   const { login } = useContext(Context);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!email || email === "" || !password || password === "") {
@@ -52,6 +52,7 @@ const Login = () => {
 
   const handlePasswordBlur = () => {
     setIsFocusing(false);
+
     if (!showPassword) {
       setImage(olhosAbertos);
     }
@@ -78,7 +79,9 @@ const Login = () => {
               ? "Olhos fechados"
               : "Um olho aberto"
           }
-          className="w-60 h-60 mx-auto mb-4 rounded-xl"
+          className={`w-60 h-60 mx-auto mb-4 rounded-xl ${
+            isFocusing ? "ring-4" : ""
+          }`}
         />
         <input
           type="email"
@@ -93,8 +96,14 @@ const Login = () => {
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onFocus={handlePasswordFocus}
-            onBlur={handlePasswordBlur}
+            onFocus={() => {
+              setIsFocusing(true);
+              handlePasswordFocus();
+            }}
+            onBlur={() => {
+              setIsFocusing(false);
+              handlePasswordBlur();
+            }}
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button

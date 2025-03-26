@@ -1,3 +1,4 @@
+// Context.tsx
 import { createContext, ReactNode, Dispatch, SetStateAction } from "react";
 import useAuth from "../hooks/useAuth";
 
@@ -28,7 +29,14 @@ type ContextProps = {
   setUser: Dispatch<SetStateAction<User | null>>;
 };
 
-export const Context = createContext<ContextProps | undefined>(undefined);
+export const Context = createContext<ContextProps>({
+  authenticated: false,
+  register: async () => {},
+  logout: () => {},
+  login: async () => {},
+  user: null,
+  setUser: () => {},
+});
 
 type UserProviderProps = {
   children: ReactNode;
