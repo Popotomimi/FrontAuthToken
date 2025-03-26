@@ -16,7 +16,7 @@ const Register = () => {
 
   const { register } = useContext(Context);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const passwordRegex =
@@ -50,6 +50,7 @@ const Register = () => {
     try {
       await register(user);
     } catch (error) {
+      console.error(error);
       toast.error("Ocorreu um erro ao registrar!");
     }
 

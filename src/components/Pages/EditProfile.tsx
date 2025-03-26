@@ -1,12 +1,27 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+type Address = {
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+};
+
+type UserFormData = {
+  name: string;
+  email: string;
+  gender: string;
+  address: Address;
+  phone: string;
+};
+
 const EditProfile = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<UserFormData>({
     name: "",
     email: "",
     gender: "",
@@ -19,7 +34,7 @@ const EditProfile = () => {
     phone: "",
   });
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -45,7 +60,7 @@ const EditProfile = () => {
         }
       } catch (err) {
         console.error("Erro ao carregar os dados do usuário:", err);
-        setError("Erro ao buscar os dados do usuário.");
+        setError("Erro ao carregar os dados do usuário.");
       } finally {
         setLoading(false);
       }
@@ -54,7 +69,9 @@ const EditProfile = () => {
     fetchUser();
   }, [id]);
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => {
       if (name.startsWith("address.")) {
@@ -74,7 +91,7 @@ const EditProfile = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await axios.patch(`${import.meta.env.VITE_URL}/users/${id}`, formData);
@@ -82,7 +99,6 @@ const EditProfile = () => {
       navigate("/dashboard");
     } catch (err) {
       console.error("Erro ao atualizar o usuário:", err);
-      setError("Erro ao salvar as alterações.");
     }
   };
 

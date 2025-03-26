@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
+type User = {
+  _id: string;
+  name: string;
+  email: string;
+};
+
 const Dashboard = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [stats, setStats] = useState({ totalUsers: 0 });
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,7 +73,7 @@ const Dashboard = () => {
                       {user.name}
                     </td>
                     <td
-                      className="px-4 py-2 border border-gray-200 truncate max-w-[250px] sm:max-w-[200px] lg:max-w-[300px]" // Limita largura
+                      className="px-4 py-2 border border-gray-200 truncate max-w-[250px] sm:max-w-[200px] lg:max-w-[300px]"
                       title={user.email}>
                       {user.email}
                     </td>

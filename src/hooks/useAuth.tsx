@@ -7,9 +7,15 @@ const api = axios.create({
   baseURL: `${import.meta.env.VITE_URL}`,
 });
 
+type User = {
+  _id: string;
+  name: string;
+  email: string;
+} | null;
+
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,41 +32,46 @@ export default function useAuth() {
     }
   }, []);
 
-  async function register(userData) {
+  async function register(userData: object) {
     try {
       const data = await api
         .post("/users/register", userData)
-        .then((response) => {
-          return response.data;
-        });
+        .then((response) => response.data);
       await authUser(data);
       toast.success("Cadastro Realizado com Sucesso!");
     } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        toast.error(error.response.data.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Erro desconhecido.");
       } else {
         toast.error("Erro desconhecido. Tente novamente mais tarde.");
       }
     }
   }
 
-  async function login(userData) {
+  async function login(userData: object) {
     try {
-      const data = await api.post("/users/login", userData).then((response) => {
-        return response.data;
-      });
+      const data = await api
+        .post("/users/login", userData)
+        .then((response) => response.data);
       await authUser(data);
       toast.success(`Bem-vindo(a)!`);
     } catch (error) {
-      toast.error(error.response.data.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || "Erro ao realizar o login."
+        );
+      } else {
+        toast.error("Erro desconhecido. Tente novamente mais tarde.");
+      }
     }
   }
 
-  async function authUser(data) {
+  async function authUser(data: {
+    id: string;
+    name: string;
+    email: string;
+    token: string;
+  }) {
     setAuthenticated(true);
     localStorage.setItem("token", JSON.stringify(data.token));
 
@@ -80,7 +91,7 @@ export default function useAuth() {
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    api.defaults.headers.Authorization = undefined;
+    api.defaults.headers.Authorization = null;
 
     toast.warn("Volte sempre!");
 
