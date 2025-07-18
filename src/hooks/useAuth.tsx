@@ -98,5 +98,5 @@ export default function useAuth() {
     navigate("/");
   }
 
-  return { authenticated, register, logout, login, user, setUser };
+  return { authenticated, register, logout, login, user, setUser, authUser };
 }

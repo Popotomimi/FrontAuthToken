@@ -17,7 +17,7 @@ export default function GoogleRedirectHandler() {
     if (token && name && id && email) {
       authUser({ token, name, id, email });
     } else {
-      navigate("/login"); // volta pro login se algo der errado
+      navigate("/login");
     }
   }, []);
 
