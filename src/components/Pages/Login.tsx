@@ -4,6 +4,7 @@ import olhosAbertos from "/img/olhos_abertos.jpg";
 import olhosFechados from "/img/olhos_fechados.jpg";
 import umOlhoAberto from "/img/um_olho_aberto.jpg";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -127,6 +128,9 @@ const Login = () => {
         <div className="text-center text-gray-500 my-4 font-semibold italic">
           ou
         </div>
+        <Link to="https://authjwt-aqoe.onrender.com/auth/google">
+          Entrar com o Google
+        </Link>
         <a
           href="/register"
           className="block text-center text-blue-500 font-bold hover:underline">

@@ -14,8 +14,9 @@ import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/Pages/Home";
 import Login from "./components/Pages/Login";
 import Register from "./components/Pages/Register";
-import EditProfile from "./components/Pages/EditProfile";
 import Dashboard from "./components/Pages/Dashboard";
+import EditProfile from "./components/Pages/EditProfile";
+import GoogleRedirectHandler from "./components/GoogleRedirectHandler";
 
 // Context
 import { UserProvider } from "./context/UserContext";
@@ -45,6 +46,10 @@ function App() {
                 <Dashboard />
               </PrivateRoute>
             }
+          />
+          <Route
+            path="/auth/google/callback"
+            element={<GoogleRedirectHandler />}
           />
         </Routes>
         <Footer />
