@@ -38,7 +38,7 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li
-              className="flex items-center text-white p-2 hover:text-white hover:bg-red-500 rounded-sm transition duration-500"
+              className="flex cursor-pointer items-center text-white p-2 hover:text-white hover:bg-red-500 rounded-sm transition duration-500"
               onClick={logout}>
               <LuLogOut className="mr-2" /> Logout
             </li>

@@ -1,10 +1,20 @@
+// React
 import { useState, useContext } from "react";
 import { Context } from "../../context/UserContext";
+
+// React Toastify
+import { toast } from "react-toastify";
+
+// React Router
+import { Link } from "react-router-dom";
+
+// IMG
 import olhosAbertos from "/img/olhos_abertos.jpg";
 import olhosFechados from "/img/olhos_fechados.jpg";
 import umOlhoAberto from "/img/um_olho_aberto.jpg";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+
+// Icons
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -118,19 +128,23 @@ const Login = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full py-3 rounded-lg ${
+          className={`w-full py-3 rounded-lg mb-5 ${
             isLoading
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-blue-500 text-white hover:bg-blue-600"
           }`}>
           {isLoading ? "Carregando..." : "Entrar"}
         </button>
+
+        <Link to="https://authjwt-aqoe.onrender.com/auth/google">
+          <span className="inline-block bg-blue-100 hover:bg-blue-200 p-3 rounded-lg">
+            <FcGoogle className="w-6 h-6" />
+          </span>
+        </Link>
+
         <div className="text-center text-gray-500 my-4 font-semibold italic">
           ou
         </div>
-        <Link to="https://authjwt-aqoe.onrender.com/auth/google">
-          Entrar com o Google
-        </Link>
         <a
           href="/register"
           className="block text-center text-blue-500 font-bold hover:underline">
