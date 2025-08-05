@@ -67,22 +67,29 @@ export default function useAuth() {
   }
 
   async function authUser(data: {
-    id: string;
+    id?: string;
+    _id?: string;
     name: string;
     email: string;
     token: string;
   }) {
-    setAuthenticated(true);
-    localStorage.setItem("token", JSON.stringify(data.token));
+    const resolvedId = data.id || data._id;
+
+    if (!resolvedId) {
+      toast.error("ID do usuário ausente. Não foi possível autenticar.");
+      return;
+    }
 
     const userData = {
-      _id: data.id,
+      _id: resolvedId,
       name: data.name,
       email: data.email,
     };
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
 
+    setAuthenticated(true);
+    setUser(userData);
+    localStorage.setItem("token", JSON.stringify(data.token));
+    localStorage.setItem("user", JSON.stringify(userData));
     navigate("/dashboard");
   }
 
@@ -94,7 +101,6 @@ export default function useAuth() {
     api.defaults.headers.Authorization = null;
 
     toast.warn("Volte sempre!");
-
     navigate("/");
   }
 
