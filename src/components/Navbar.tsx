@@ -1,8 +1,16 @@
-import { useState, useContext } from "react";
+// React Router Dom
 import { Link } from "react-router-dom";
+
+// Hooks
+import { useState, useContext } from "react";
+
+// Icons
+import { LuLogOut } from "react-icons/lu";
+import { IoMdClose } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SiJsonwebtokens } from "react-icons/si";
-import { LuLogOut } from "react-icons/lu";
+
+// Context
 import { Context } from "../context/UserContext";
 
 const Navbar = () => {
@@ -22,7 +30,11 @@ const Navbar = () => {
           </h1>
         </Link>
         <button className="text-white md:hidden" onClick={toggleMenu}>
-          <RxHamburgerMenu className="text-2xl hover:bg-stone-600 rounded-sm" />
+          {isOpen ? (
+            <IoMdClose className="text-2xl hover:bg-stone-600 rounded-sm" />
+          ) : (
+            <RxHamburgerMenu className="text-2xl hover:bg-stone-600 rounded-sm" />
+          )}
         </button>
       </div>
       <ul
@@ -31,15 +43,28 @@ const Navbar = () => {
         }`}>
         {authenticated ? (
           <>
-            <li className="text-white p-2 hover:bg-stone-600 rounded-sm">
-              <Link to={`/edit/${user?._id || ""}`}>Edit Profile</Link>
+            <li className="mt-5 mb-5">
+              <Link
+                className="text-white p-2 hover:bg-stone-600 rounded-sm"
+                onClick={toggleMenu}
+                to={`/edit/${user?._id || ""}`}>
+                Edit Profile
+              </Link>
             </li>
-            <li className="text-white p-2 hover:bg-stone-600 rounded-sm">
-              <Link to="/dashboard">Dashboard</Link>
+            <li className="mt-5 mb-5">
+              <Link
+                className="text-white p-2 hover:bg-stone-600 rounded-sm"
+                onClick={toggleMenu}
+                to="/dashboard">
+                Dashboard
+              </Link>
             </li>
             <li
-              className="flex cursor-pointer items-center text-white p-2 hover:text-white hover:bg-red-500 rounded-sm transition duration-500"
-              onClick={logout}>
+              className="flex cursor-pointer mt-5 mb-5 items-center text-white p-2 hover:text-white hover:bg-red-500 rounded-sm transition duration-500"
+              onClick={() => {
+                logout();
+                toggleMenu();
+              }}>
               <LuLogOut className="mr-2" /> Logout
             </li>
           </>
@@ -48,6 +73,7 @@ const Navbar = () => {
             <li className="mt-5 mb-5">
               <Link
                 className="text-white p-2 hover:bg-stone-600 rounded-sm"
+                onClick={toggleMenu}
                 to="/">
                 Home
               </Link>
@@ -55,6 +81,7 @@ const Navbar = () => {
             <li className="mt-5 mb-5">
               <Link
                 className="text-white p-2 hover:bg-stone-600 rounded-sm"
+                onClick={toggleMenu}
                 to="/Login">
                 Login
               </Link>
@@ -62,6 +89,7 @@ const Navbar = () => {
             <li className="mt-5 mb-5">
               <Link
                 className="text-white p-2 hover:bg-stone-600 rounded-sm"
+                onClick={toggleMenu}
                 to="/register">
                 Register
               </Link>
