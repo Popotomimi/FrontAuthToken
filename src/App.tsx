@@ -20,6 +20,7 @@ import GoogleRedirectHandler from "./components/GoogleRedirectHandler";
 
 // Context
 import { UserProvider } from "./context/UserContext";
+import GithubCallback from "./components/GithubCallback";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
             path="/auth/google/callback"
             element={<GoogleRedirectHandler />}
           />
+          <Route path="/auth/github/callback" element={<GithubCallback />} />
         </Routes>
         <Footer />
       </UserProvider>
