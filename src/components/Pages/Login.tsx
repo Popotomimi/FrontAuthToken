@@ -16,6 +16,7 @@ import umOlhoAberto from "/img/um_olho_aberto.jpg";
 // Icons
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa6";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -141,11 +142,11 @@ const Login = () => {
           Você também pode entrar com uma conta social:
         </p>
 
-        <div className="flex justify-center gap-4 mb-6">
+        <div className="flex flex-wrap justify-center gap-4 mb-6">
           <Link to="https://authjwt-aqoe.onrender.com/auth/google">
             <button
               type="button"
-              className="flex items-center gap-2 px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold rounded-lg shadow-md transition duration-200">
+              className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md transition duration-200">
               <FcGoogle className="w-5 h-5" />
               <span>Google</span>
             </button>
@@ -157,6 +158,15 @@ const Login = () => {
               className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md transition duration-200">
               <FaGithub className="w-5 h-5" />
               <span>GitHub</span>
+            </button>
+          </Link>
+
+          <Link to="https://authjwt-aqoe.onrender.com/auth/facebook">
+            <button
+              type="button"
+              className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md transition duration-200">
+              <FaFacebook className="w-5 h-5 text-[#1877F2]" />
+              <span>Facebook</span>
             </button>
           </Link>
         </div>

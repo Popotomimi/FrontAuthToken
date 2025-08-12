@@ -55,6 +55,7 @@ function App() {
             element={<GoogleRedirectHandler />}
           />
           <Route path="/auth/github/callback" element={<GithubCallback />} />
+          <Route path="/auth/facebook/callback" element={<GithubCallback />} />
         </Routes>
         <Footer />
       </UserProvider>
