@@ -21,6 +21,7 @@ import GoogleRedirectHandler from "./components/GoogleRedirectHandler";
 // Context
 import { UserProvider } from "./context/UserContext";
 import GithubCallback from "./components/GithubCallback";
+import PrivacyPolicies from "./components/Pages/PrivacyPolicies";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/privacy-policy" element={<PrivacyPolicies />} />
           <Route
             path="/auth/google/callback"
             element={<GoogleRedirectHandler />}
