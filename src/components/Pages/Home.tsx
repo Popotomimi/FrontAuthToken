@@ -60,6 +60,27 @@ const Home = () => {
           </p>
         </div>
         <div className="bg-white shadow-md rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Google</h3>
+          <p className="text-gray-600">
+            Autenticação com contas do
+            <span className="font-semibold"> Google</span>.
+          </p>
+        </div>
+        <div className="bg-white shadow-md rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">GitHub</h3>
+          <p className="text-gray-600">
+            Autenticação com contas do
+            <span className="font-semibold"> GitHub</span>.
+          </p>
+        </div>
+        <div className="bg-white shadow-md rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Facebook</h3>
+          <p className="text-gray-600">
+            Autenticação com contas do
+            <span className="font-semibold"> Facebook</span>.
+          </p>
+        </div>
+        <div className="bg-white shadow-md rounded-lg p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-2">API REST</h3>
           <p className="text-gray-600">
             Backend construído com <span className="font-semibold">NestJS</span>{" "}
